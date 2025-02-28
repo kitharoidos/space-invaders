@@ -1,6 +1,5 @@
 (ns space-invaders.cli
-  (:require [clojure.pprint :refer [pprint]]
-            [malli.core :as m]
+  (:require [malli.core :as m]
             [malli.transform :as mt]
             [space-invaders.malli.transform :as smt]
             [space-invaders.schema :as schema]))
@@ -26,6 +25,6 @@
 (defn help! []
   (println schema/documentation))
 
-(defmacro with-args [args computation]
-  `(binding [*args* (~coerce ~args)]
-    (-> ~computation (pprint))))
+(defn with-args [args computation]
+  (binding [*args* (coerce args)]
+    (println (computation))))

@@ -11,7 +11,6 @@
           radar-sample
           [[\- \o]
            [\o \-]]]
-      (is (= (->> (apply concat radar-sample)
-                  (reduce match/update-match (match/new-match invader-pattern))
-                  (match/mismatches))
+      (is (= (->> (map #(if (match/mismatch? %1 %2) 1 0) (flatten invader-pattern) (flatten radar-sample))
+                  (reduce + 0))
              2)))))

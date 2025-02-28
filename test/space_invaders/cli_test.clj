@@ -10,26 +10,26 @@
               ["--known-invaders" (io/resource "cli/valid-known-invaders")
                "--radar-sample" (io/resource "cli/valid-radar-sample")
                "--tolerance" "10"]
-              nil)
+              (fn []))
             true)))
   (testing "Missing --known-invaders"
     (is (thrown? ExceptionInfo
                  (cli/with-args
                    ["--radar-sample" (io/resource "cli/valid-radar-sample")
                     "--tolerance" "10"]
-                   nil))))
+                   (fn [])))))
   (testing "Missing --radar-sample"
     (is (thrown? ExceptionInfo
                  (cli/with-args
                    ["--known-invaders" (io/resource "cli/valid-known-invaders")
                     "--tolerance" "10"]
-                   nil))))
+                   (fn [])))))
   (testing "Missing --tolerance"
     (is (thrown? ExceptionInfo
                  (cli/with-args
                    ["--known-invaders" (io/resource "cli/valid-known-invaders")
                     "--radar-sample" (io/resource "cli/valid-radar-sample")]
-                   nil)))))
+                   (fn []))))))
 
 (deftest invalid-known-invaders-test
   (testing "Known invaders empty"
@@ -38,14 +38,14 @@
                    ["--known-invaders" (io/resource "cli/empty")
                     "--radar-sample" (io/resource "cli/valid-radar-sample")
                     "--tolerance" "10"]
-                   nil))))
+                   (fn [])))))
   (testing "One known invader invalid"
     (is (thrown? ExceptionInfo
                  (cli/with-args
                    ["--known-invaders" (io/resource "cli/one-known-invader-invalid")
                     "--radar-sample" (io/resource "cli/valid-radar-sample")
                     "--tolerance" "10"]
-                   nil)))))
+                   (fn []))))))
 
 (deftest invalid-radar-sample-test
   (testing "Radar sample not a matrix"
@@ -54,14 +54,14 @@
                    ["--known-invaders" (io/resource "cli/valid-known-invaders")
                     "--radar-sample" (io/resource "cli/radar-sample-not-a-matrix")
                     "--tolerance" "10"]
-                   nil))))
+                   (fn [])))))
   (testing "Radar sample with invalid chars"
     (is (thrown? ExceptionInfo
                  (cli/with-args
                    ["--known-invaders" (io/resource "cli/valid-known-invaders")
                     "--radar-sample" (io/resource "cli/radar-sample-with-invalid-chars")
                     "--tolerance" "10"]
-                   nil)))))
+                   (fn []))))))
 
 (deftest invalid-tolerance-test
   (testing "Negative tolerance"
@@ -69,10 +69,10 @@
                                  ["--known-invaders" (io/resource "cli/valid-known-invaders")
                                   "--radar-sample" (io/resource "cli/valid-radar-sample")
                                   "--tolerance" "-1"]
-                                 nil))))
+                                 (fn [])))))
   (testing "Fractional tolerance"
     (is (thrown? ExceptionInfo (cli/with-args
                                  ["--known-invaders" (io/resource "cli/valid-known-invaders")
                                   "--radar-sample" (io/resource "cli/valid-radar-sample")
                                   "--tolerance" "0.1"]
-                                 nil)))))
+                                 (fn []))))))
