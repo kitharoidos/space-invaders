@@ -4,7 +4,7 @@
             [space-invaders.model.matrix :as matrix]))
 
 (deftest canvas-test
-  (testing "Canvas"
+  (testing "Drawing on and rendering of canvas"
     (let [invader-1
           [[\- \o \-]
            [\- \o \-]]
@@ -18,15 +18,15 @@
           {:w 5, :h 5}
 
           canvas
-          (canvas/new-canvas (map matrix/size [invader-1 invader-2]) radar-size)
+          (canvas/canvas (map matrix/size [invader-1 invader-2]) radar-size)
 
-          pattern-1
-          (matrix/pad (canvas/size canvas) invader-1 {:x 3, :y 3})
+          padded-invader-1
+          (matrix/pad-submat (canvas/size canvas) invader-1 {:x 3, :y 3})
 
-          pattern-2
-          (matrix/pad (canvas/size canvas) invader-2 {:x 4, :y 4})]
+          padded-invader-2
+          (matrix/pad-submat (canvas/size canvas) invader-2 {:x 4, :y 4})]
       (is (= (-> canvas
-                 (canvas/add-invader pattern-1)
-                 (canvas/add-invader pattern-2)
+                 (canvas/draw-padded-invader padded-invader-1)
+                 (canvas/draw-padded-invader padded-invader-2)
                  (canvas/render))
              "         \n         \n  -----  \n  --o--  \n  --o--  \n  --oo-  \n  -----  \n         \n         ")))))

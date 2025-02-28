@@ -1,5 +1,5 @@
 (ns space-invaders.model.match)
 
-(defn mismatch? [pattern-pixel radar-pixel]
-  (or (and (= pattern-pixel \o) (not= radar-pixel \o))
-      (and (= pattern-pixel \-) (= radar-pixel \o))))
+(defn mismatch? [invader-pixel radar-pixel]
+  (or (and (= invader-pixel \o) (not= radar-pixel \o))
+      (and (= invader-pixel \-) (= radar-pixel \o))))

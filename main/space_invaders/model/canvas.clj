@@ -1,12 +1,12 @@
 (ns space-invaders.model.canvas)
 
-(defn new-canvas [known-invader-sizes {:keys [w h] :as radar-size}]
+(defn canvas [known-invader-sizes radar-size]
   (let [max-invader-width (apply max (map :w known-invader-sizes))
         max-invader-height (apply max (map :h known-invader-sizes))
         padding {:x (dec max-invader-width)
                  :y (dec max-invader-height)}
-        size {:w (+ (dec max-invader-width) w (dec max-invader-width))
-              :h (+ (dec max-invader-height) h (dec max-invader-height))}]
+        size {:w (+ (dec max-invader-width) (:w radar-size) (dec max-invader-width))
+              :h (+ (dec max-invader-height) (:h radar-size) (dec max-invader-height))}]
     {:padding padding
      :size size
      :radar-size radar-size
@@ -26,10 +26,10 @@
 (defn size [canvas]
   (:size canvas))
 
-(defn add-invader [canvas invader]
+(defn draw-padded-invader [canvas padded-invader]
   (-> canvas
       (update :img (fn [img]
-                     (->> invader
+                     (->> padded-invader
                           (sequence (comp (interpose [\newline])
                                           (mapcat identity)
                                           (map #{\o \newline})))
