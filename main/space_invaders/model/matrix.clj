@@ -6,6 +6,10 @@
 (defn width [matrix]
   (count (first matrix)))
 
+(defn size [matrix]
+  {:w (width matrix)
+   :h (height matrix)})
+
 (defn lazy-pad [{:keys [w h] :as matrix-size} submatrix {:keys [x y] :as submatrix-position}]
   (let [left x
         top y

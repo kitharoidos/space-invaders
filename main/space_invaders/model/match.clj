@@ -17,3 +17,6 @@
 
 (defn mismatches [match]
   (:mismatches match))
+
+(defn pattern [match]
+  (:pattern match))
