@@ -8,7 +8,7 @@
   (if (= (first args) "--help")
     (cli/help!)
     (try
-      (->> (cli/args)
+      (->> nil
            (cli/with-args args))
       (catch ExceptionInfo e
         (log/error (ex-message e) (ex-data e) e)

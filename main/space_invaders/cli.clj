@@ -14,8 +14,14 @@
   (-> (into {} (map vec) (partition 2 args))
       (coercer)))
 
-(defn args []
-  *args*)
+(defn known-invaders []
+  (get *args* "--known-invaders"))
+
+(defn radar-sample []
+  (get *args* "--radar-sample"))
+
+(defn tolerance []
+  (get *args* "--tolerance"))
 
 (defn help! []
   (println schema/documentation))
