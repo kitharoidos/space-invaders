@@ -1,6 +1,8 @@
 (ns space-invaders.model.match)
 
-(defn mismatch? [invader radar-sample-submat tolerance]
+(defn mismatch?
+  "Compare 'invader' with 'radar-sample-submat' pixel-by-pixel and return true iff the mismatches exceed 'tolerance'."
+  [invader radar-sample-submat tolerance]
   (->> (map (fn [invader-pixel radar-pixel]
               (if (or (and (= invader-pixel \o) (not= radar-pixel \o))
                       (and (= invader-pixel \-) (= radar-pixel \o)))

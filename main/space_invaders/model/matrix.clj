@@ -10,19 +10,25 @@
   {:w (count (first mat))
    :h (count mat)})
 
-(defn pad-submat [mat-size submat submat-pos]
+(defn pad-submat
+  "Pad 'submat' positioned at 'submat-pos' within a matrix of 'mat-size' with nils to have 'mat-size'."
+  [mat-size submat submat-pos]
   (let [{:keys [w]} mat-size
         {:keys [l t r b]} (submat-margin mat-size (size submat) submat-pos)]
     (concat (repeat t (repeat w nil))
             (map #(concat (repeat l nil) % (repeat r nil)) submat)
             (repeat b (repeat w nil)))))
 
-(defn submat-positions [mat-size submat-size]
+(defn submat-positions
+  "All possible positions of a submatrix of 'submat-size' in a matrix of 'mat-size'."
+  [mat-size submat-size]
   (for [x (range (inc (- (:w mat-size) (:w submat-size))))
         y (range (inc (- (:h mat-size) (:h submat-size))))]
     {:x x, :y y}))
 
-(defn submat [mat submat-size submat-pos]
+(defn submat
+  "Submatrix of 'submat-size' positioned at 'submat-pos' within the matrix 'mat'."
+  [mat submat-size submat-pos]
   (let [{:keys [w h]} submat-size
         {:keys [l t]} (submat-margin (size mat) submat-size submat-pos)]
     (sequence (comp (drop t)

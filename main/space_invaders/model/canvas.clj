@@ -1,6 +1,8 @@
 (ns space-invaders.model.canvas)
 
-(defn canvas [size padding]
+(defn canvas
+  "Canvas of 'size', filled with '-', padded with as many ' ' as specified in 'padding'."
+  [size padding]
   (let [{:keys [w h]} size
         {:keys [x y]} padding]
     (->> (concat (repeat y (repeat w \space))
@@ -9,7 +11,9 @@
          (into [] (comp (interpose [\newline])
                         (mapcat identity))))))
 
-(defn draw-padded-invader [canvas padded-invader]
+(defn draw-padded-invader
+  "Composite 'canvas' with 'padded-invader' assumed to have the same size as 'canvas'."
+  [canvas padded-invader]
   (->> padded-invader
        (sequence (comp (interpose [\newline])
                        (mapcat identity)

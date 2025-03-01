@@ -1,4 +1,4 @@
-# Development assignment
+# Development assignment (with solution documented below)
 
 Space invaders are upon us!
 You were shortlisted as one of the great minds to help us track them down.
@@ -93,3 +93,14 @@ o-----oo-------------------o--o-----o-----------o------o-------o----o-----------
 o--oo------o-----oo--o-oo------------oo--o------o--o-------------oo----o------------oooo-o------oo--
 -----o----------ooooooooo--------------oo--------------oo-----o-----o-o--o------o----------o----o---
 ~~~~
+
+### Solution
+The solution is provided as a command-line utility - run the following to see the documentation:
+```shell
+./reveal-space-invaders.sh --help
+```
+The algorithm proceeds as follows:
+1. the radar sample is padded with nils so that invader patterns can be matched to it even if they extend beyond the radar screen
+2. for each invader pattern, all submatrices of the padded radar sample to which the invader pattern can be matched are generated
+3. each invader pattern matching a submatrix of the padded radar sample within the given tolerance is drawn at the corresponding submatrix of a canvas of the same shape as the padded radar sample
+4. the canvas with all the matching invader patterns overlaid is printed to the console

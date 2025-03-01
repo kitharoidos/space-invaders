@@ -17,6 +17,7 @@
             radar-sample-size (matrix/size radar-sample)
             max-invader-width (apply max (map :w known-invader-sizes))
             max-invader-height (apply max (map :h known-invader-sizes))
+            ;'canvas-padding' can accommodate any invader with a single pixel/row/column overlap with 'radar-sample'
             canvas-padding {:x (dec max-invader-width)
                             :y (dec max-invader-height)}
             canvas-size {:w (+ (:x canvas-padding) (:w radar-sample-size) (:x canvas-padding))
