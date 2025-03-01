@@ -8,11 +8,9 @@
           [[\o \o]
            [\- \-]]
 
-          radar-sample
+          radar-sample-submat
           [[\- \o]
-           [\o \-]]]
-      (is (= (->> (map #(if (match/mismatch? %1 %2) 1 0)
-                       (flatten invader)
-                       (flatten radar-sample))
-                  (reduce + 0))
-             2)))))
+           [\o \-]]
+
+          tolerance 1]
+      (is (match/mismatch? invader radar-sample-submat tolerance)))))

@@ -14,18 +14,11 @@
            [\o \o]
            [\- \-]]
 
-          radar-size
-          {:w 5, :h 5}
-
-          canvas
-          (canvas/canvas (map matrix/size [invader-1 invader-2]) radar-size)
-
-          padded-invader-1
-          (matrix/pad-submat (canvas/size canvas) invader-1 {:x 3, :y 3})
-
-          padded-invader-2
-          (matrix/pad-submat (canvas/size canvas) invader-2 {:x 4, :y 4})]
-      (is (= (-> canvas
+          canvas-padding {:x 2, :y 2}
+          canvas-size {:w 9, :h 9}
+          padded-invader-1 (matrix/pad-submat canvas-size invader-1 {:x 3, :y 3})
+          padded-invader-2 (matrix/pad-submat canvas-size invader-2 {:x 4, :y 4})]
+      (is (= (-> (canvas/canvas canvas-size canvas-padding)
                  (canvas/draw-padded-invader padded-invader-1)
                  (canvas/draw-padded-invader padded-invader-2)
                  (canvas/render))

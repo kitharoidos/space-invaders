@@ -1,4 +1,4 @@
-(ns space-invaders.model.ctx
+(ns space-invaders.model.args
   (:require [clojure.set :as set]
             [malli.core :as m]
             [malli.transform :as mt]
@@ -8,7 +8,7 @@
 (def ^:private coercer
   (m/coercer schema/args (mt/transformer smt/matrix-transformer smt/matrices-transformer mt/string-transformer mt/default-value-transformer)))
 
-(defn ctx [args]
+(defn coerce [args]
   (-> (into {} (map vec) (partition 2 args))
       (coercer)
       (set/rename-keys {"--known-invaders" :known-invaders
