@@ -18,13 +18,16 @@
         (->> known-invaders
              (transduce (comp (mapcat (fn [invader]
                                         (->> (matrix/submat-positions (canvas/size canvas) (matrix/size invader))
-                                             (map (partial matrix/pad-submat (canvas/size canvas) invader)))))
-                              (remove (fn [padded-invader]
+                                             (map (fn [pos]
+                                                    [invader pos (matrix/submat padded-radar-sample (matrix/size invader) pos)])))))
+                              (remove (fn [[invader pos radar-sample-submat]]
                                         (->> (map #(if (match/mismatch? %1 %2) 1 0)
-                                                  (flatten padded-invader)
-                                                  (flatten padded-radar-sample))
+                                                  (flatten invader)
+                                                  (flatten radar-sample-submat))
                                              (reductions + 0)
-                                             (some (partial < tolerance))))))
+                                             (some (partial < tolerance)))))
+                              (map (fn [[invader pos radar-sample-submat]]
+                                     (matrix/pad-submat (canvas/size canvas) invader pos))))
                         (completing canvas/draw-padded-invader)
                         canvas)
              (canvas/render)

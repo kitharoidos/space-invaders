@@ -29,3 +29,14 @@
              {:x 0, :y 1}
              {:x 1, :y 0}
              {:x 1, :y 1}}))))
+
+(deftest submat-test
+  (testing "Submatrix"
+    (is (= (->> (matrix/submat [[1 2 3]
+                                [4 5 6]
+                                [7 8 9]]
+                               {:w 2, :h 2}
+                               {:x 1, :y 0})
+                (mapv vec))
+           [[2 3]
+            [5 6]]))))
