@@ -11,8 +11,8 @@
          (into [] (comp (interpose [\newline])
                         (mapcat identity))))))
 
-(defn draw-padded-invader
-  "Composite 'canvas' with 'padded-invader' assumed to have the same size as 'canvas'."
+(defn draw-invader
+  "Composite 'canvas' with 'invader' assumed to be padded to the size of 'canvas'."
   [canvas padded-invader]
   (->> padded-invader
        (sequence (comp (interpose [\newline])

@@ -35,7 +35,7 @@
                                         (match/mismatch? invader radar-sample-submat max-pixel-mismatches)))
                               (map (fn [{:keys [invader pos]}]
                                      (matrix/pad-submat canvas-size invader pos))))
-                        (completing canvas/draw-padded-invader)
+                        (completing canvas/draw-invader)
                         (canvas/canvas canvas-size canvas-padding))
              (canvas/render)
              (println)))

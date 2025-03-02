@@ -11,7 +11,7 @@
    :h (count mat)})
 
 (defn pad-submat
-  "Pad 'submat' positioned at 'submat-pos' within a matrix of 'mat-size' with nils to have 'mat-size'."
+  "Pad 'submat' positioned at 'submat-pos' within a matrix of 'mat-size' so that it has 'mat-size'."
   [mat-size submat submat-pos]
   (let [{:keys [w]} mat-size
         {:keys [l t r b]} (submat-margin mat-size (size submat) submat-pos)]

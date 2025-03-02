@@ -5,21 +5,25 @@
 
 (deftest canvas-test
   (testing "Drawing on and rendering of canvas"
-    (let [invader-1
-          [[\- \o \-]
-           [\- \o \-]]
+    (let [canvas-size {:w 9, :h 9}
+          canvas-padding {:x 2, :y 2}
+
+          invader-1
+          (matrix/pad-submat
+            canvas-size
+            [[\- \o \-]
+             [\- \o \-]]
+            {:x 3, :y 3})
 
           invader-2
-          [[\- \-]
-           [\o \o]
-           [\- \-]]
-
-          canvas-padding {:x 2, :y 2}
-          canvas-size {:w 9, :h 9}
-          padded-invader-1 (matrix/pad-submat canvas-size invader-1 {:x 3, :y 3})
-          padded-invader-2 (matrix/pad-submat canvas-size invader-2 {:x 4, :y 4})]
+          (matrix/pad-submat
+            canvas-size
+            [[\- \-]
+             [\o \o]
+             [\- \-]]
+            {:x 4, :y 4})]
       (is (= (-> (canvas/canvas canvas-size canvas-padding)
-                 (canvas/draw-padded-invader padded-invader-1)
-                 (canvas/draw-padded-invader padded-invader-2)
+                 (canvas/draw-invader invader-1)
+                 (canvas/draw-invader invader-2)
                  (canvas/render))
              "         \n         \n  -----  \n  --o--  \n  --o--  \n  --oo-  \n  -----  \n         \n         ")))))
