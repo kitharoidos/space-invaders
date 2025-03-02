@@ -1,4 +1,4 @@
-(ns space-invaders.model.ctx-test
+(ns space-invaders.model.args-test
   (:require [clojure.java.io :as io]
             [clojure.test :refer :all]
             [space-invaders.model.args :as args])
@@ -57,4 +57,9 @@
     (is (thrown? ExceptionInfo (args/coerce
                                  ["--known-invaders" (io/resource "cli/valid-known-invaders")
                                   "--radar-sample" (io/resource "cli/valid-radar-sample")
-                                  "--tolerance" "0.1"])))))
+                                  "--tolerance" "0.1"]))))
+  (testing "Tolerance over 100"
+    (is (thrown? ExceptionInfo (args/coerce
+                                 ["--known-invaders" (io/resource "cli/valid-known-invaders")
+                                  "--radar-sample" (io/resource "cli/valid-radar-sample")
+                                  "--tolerance" "101"])))))

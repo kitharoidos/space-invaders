@@ -20,10 +20,12 @@
     (-> matrix
         (mu/update-properties assoc :matrix? true))]
    ["--tolerance"
-    nat-int?]])
+    [:and
+     nat-int?
+     [:fn #(<= % 100)]]]])
 
 (def documentation
   "Options:
   --known-invaders (required) Path to a text file with invader patterns separated by empty lines
   --radar-sample (required) Path to a text file with a radar sample
-  --tolerance (required) Maximum number of allowed mismatches when matching an invader pattern to the radar sample")
+  --tolerance (required) Maximum number of allowed mismatches when matching an invader pattern to the radar sample in percents of the pattern's pixel count")

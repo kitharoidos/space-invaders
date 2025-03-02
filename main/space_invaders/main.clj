@@ -27,10 +27,13 @@
              (transduce (comp (mapcat (fn [invader]
                                         (->> (matrix/submat-positions canvas-size (matrix/size invader))
                                              (map (fn [pos]
-                                                    [invader pos (matrix/submat padded-radar-sample (matrix/size invader) pos)])))))
-                              (remove (fn [[invader pos radar-sample-submat]]
-                                        (match/mismatch? invader radar-sample-submat tolerance)))
-                              (map (fn [[invader pos radar-sample-submat]]
+                                                    {:invader invader
+                                                     :pos pos
+                                                     :radar-sample-submat (matrix/submat padded-radar-sample (matrix/size invader) pos)
+                                                     :max-pixel-mismatches (match/max-pixel-mismatches invader tolerance)})))))
+                              (remove (fn [{:keys [invader radar-sample-submat max-pixel-mismatches]}]
+                                        (match/mismatch? invader radar-sample-submat max-pixel-mismatches)))
+                              (map (fn [{:keys [invader pos]}]
                                      (matrix/pad-submat canvas-size invader pos))))
                         (completing canvas/draw-padded-invader)
                         (canvas/canvas canvas-size canvas-padding))
